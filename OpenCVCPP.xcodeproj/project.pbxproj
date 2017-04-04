@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE3E72EE1E7B380D0017BE41 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE3E72ED1E7B380D0017BE41 /* main.cpp */; };
+		CEE139DD1E92B6680046513F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE139DC1E92B6680046513F /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,8 @@
 
 /* Begin PBXFileReference section */
 		CE3E72EA1E7B380D0017BE41 /* OpenCV CPP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OpenCV CPP"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE3E72ED1E7B380D0017BE41 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CEAA4EAD1E93208E00DCA726 /* FindingContours.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FindingContours.png; path = OpenCV_CPP/FindingContours.png; sourceTree = SOURCE_ROOT; };
+		CEE139DC1E92B6680046513F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = OpenCV_CPP/main.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +58,8 @@
 		CE3E72EC1E7B380D0017BE41 /* OpenCV CPP */ = {
 			isa = PBXGroup;
 			children = (
-				CE3E72ED1E7B380D0017BE41 /* main.cpp */,
+				CEAA4EAD1E93208E00DCA726 /* FindingContours.png */,
+				CEE139DC1E92B6680046513F /* main.cpp */,
 			);
 			path = "OpenCV CPP";
 			sourceTree = "<group>";
@@ -120,7 +122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3E72EE1E7B380D0017BE41 /* main.cpp in Sources */,
+				CEE139DD1E92B6680046513F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +162,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					DDLIB_NO_GUI_SUPPORT,
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -220,7 +223,16 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DEVELOPMENT_TEAM = S264RF7436;
 				FRAMEWORK_SEARCH_PATHS = /usr/local/Cellar/opencv3/3.2.0/lib;
-				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/opencv3/3.2.0/include;
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/OpenCV_CPP/lib",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					/usr/local/Cellar/opencv3/3.2.0/include,
+					"$(SRCROOT)/lib",
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv3/3.2.0/lib;
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/opencv3/3.2.0/lib;
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-lopencv_shape",
@@ -250,7 +262,16 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DEVELOPMENT_TEAM = S264RF7436;
 				FRAMEWORK_SEARCH_PATHS = /usr/local/Cellar/opencv3/3.2.0/lib;
-				"HEADER_SEARCH_PATHS[arch=*]" = "/usr/local/Cellar/opencv3/3.2.0/include/**";
+				HEADER_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)/OpenCV_CPP/lib",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"/usr/local/Cellar/opencv3/3.2.0/include/**",
+					"$(SRCROOT)/lib",
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/Cellar/opencv3/3.2.0/lib;
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/opencv3/3.2.0/lib;
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-lopencv_shape",

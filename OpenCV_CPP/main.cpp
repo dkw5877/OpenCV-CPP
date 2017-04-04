@@ -12,6 +12,12 @@
 #include "opencv2/core.hpp"
 #include "opencv2/highgui.hpp"
 
+
+//still cant get dlib to work nicely
+#include "dlib/algs.h"
+#include "dlib/image_io.h"
+
+
 using namespace std;
 using namespace cv;
 
@@ -43,14 +49,52 @@ Mat HSVPixelScalarRange(Mat image, Scalar low, Scalar high) {
     return processedImage;
 }
 
-enum option { ORBDector, HSVPixel };
+/* find and highlight the contours of shapes in an image */
+Mat displayContours(Mat image) {
+
+    int thresh = 100;
+    RNG rng(12345);
+
+    Mat src_gray;
+    Mat canny_output;
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+
+    /// Convert image to gray and blur it
+    cvtColor( image, src_gray, CV_BGR2GRAY );
+    blur( src_gray, src_gray, Size(3,3) );
+
+    /// Detect edges using canny
+    Canny( src_gray, canny_output, thresh, thresh*2, 3 );
+
+    /// Find contours
+    findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( int i = 0; i< contours.size(); i++ ) {
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    }
+
+    return drawing;
+}
+
+/* load a default image if one if not provided */
+Mat shapeDetection() {
+    Mat img = imread("/Developer/Practice Projects/OpenCV_CPP/OpenCV_CPP/FindingContours.png");
+    return displayContours(img);
+}
+
+//enum to switch between options
+enum option { ORBDector, HSVPixel, Contours };
 
 int main(int argc, const char * argv[]) {
 
     std::cout << "Running application OpenCV version" << CV_VERSION << "\n";
 
     //set the desired processing option
-    int option = HSVPixel;
+    int option = ORBDector;
 
     VideoCapture cap(0);
 
@@ -70,6 +114,9 @@ int main(int argc, const char * argv[]) {
                 break;
             case HSVPixel:
                 processedImage = HSVPixelScalarRange(cameraFrame, Scalar(0,0,0), Scalar(75,100,200));
+                break;
+            case Contours:
+                processedImage = shapeDetection();
                 break;
             default:
                 break;
